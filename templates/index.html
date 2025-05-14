@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                {% if 'user' in session %}
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('treatment') }}">Treatment History</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Welcome to Plant Disease Detection</h1>
+            {% if 'user' not in session %}
+                <p>Please <a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a> to use the prediction service.</p>
+            {% else %}
+                <h2>Upload Image to Predict Disease</h2>
+                <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+                    <label for="image">Select Image:</label>
+                    <input type="file" name="image" id="image" accept="image/*" required>
+                    <button type="submit">Upload Image</button>
+                </form>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Plant Disease Detection. All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

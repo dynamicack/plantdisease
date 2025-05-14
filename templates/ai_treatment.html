@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Treatment Recommendation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('treatment') }}">Treatment History</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>AI Treatment Planner</h1>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="disease">Disease</label>
+                <select name="disease" required>
+                    <option value="Apple_healthy">Healthy</option>
+                    <option value="Apple_Black_rot">Black Rot</option>
+                    <option value="Apple_cedar_Apple_rust">Cedar Rust</option>
+                    <option value="Apple_scab">Scab</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="severity">Severity Score (0–100)</label>
+                <input type="number" name="severity" min="0" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="temperature">Temperature (°C)</label>
+                <input type="number" name="temperature" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="humidity">Humidity (%)</label>
+                <input type="number" name="humidity" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="soil_type">Soil Type</label>
+                <select name="soil_type" required>
+                    <option value="clay">Clay</option>
+                    <option value="sandy">Sandy</option>
+                    <option value="loamy">Loamy</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="growth_stage">Growth Stage</label>
+                <select name="growth_stage" required>
+                    <option value="vegetative">Vegetative</option>
+                    <option value="flowering">Flowering</option>
+                    <option value="fruiting">Fruiting</option>
+                </select>
+            </div>
+            <button type="submit">Get Treatment Plan</button>
+        </form>
+
+        {% if treatment %}
+        <div class="treatment-box">
+            <h3>Treatment Recommendation</h3>
+            <p><strong>Message:</strong> {{ treatment.message }}</p>
+            <p><strong>Actions:</strong> {{ treatment.actions }}</p>
+            <p><strong>Products:</strong> {{ treatment.products }}</p>
+            <p><strong>Frequency:</strong> {{ treatment.frequency }}</p>
+            <p><strong>Safety Guidelines:</strong> {{ treatment.safety }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

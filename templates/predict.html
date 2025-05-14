@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .button-group a {
+            min-width: 220px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Prediction Result</h2>
+        <h3><strong>Disease Detected:</strong> {{ disease }}</h3>
+        <h4><strong>Severity:</strong> {{ severity }}</h4>
+        <h5><strong>Pesticide Concentration:</strong> {{ concentration }}</h5>
+
+        <div class="image-container">
+            <h5>🖼 Annotated Image:</h5>
+            <img src="{{ url_for('static', filename='results/' + image_path) }}" alt="Prediction Image" class="result-image">
+        </div>
+
+        <div class="button-group">
+            <a href="{{ url_for('treatment') }}">📖 See Treatment History</a>
+            <a href="{{ url_for('ai_treatment', disease=disease, severity=severity) }}">🤖 AI Treatment Advice</a>
+        </div>
+    </div>
+</body>
+</html>

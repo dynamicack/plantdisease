@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treatment History - Plant Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Your Treatment History</h1>
+
+            {% if history %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Disease</th>
+                            <th>Severity</th>
+                            <th>Treatment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in history %}
+                            <tr>
+                                <td><img src="{{ url_for('static', filename='uploads/' + entry['image'].split('/')[-1]) }}" alt="Uploaded Image" width="100"></td>
+                                <td>{{ entry['disease'] }}</td>
+                                <td>{{ entry['severity'] }}</td>
+                                <td>
+                                    <ul>
+                                        {% for treatment in entry['recommendation'] %}
+                                            <li>{{ treatment }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ entry['date'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No treatment history available.</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Plant Disease Detection. All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>
