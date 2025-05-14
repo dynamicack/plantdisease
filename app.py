@@ -23,8 +23,8 @@ users = {}
 treatment_history = []
 
 # Roboflow setup
-rf = Roboflow(api_key="8Ig4ZXFGMdcjm9YWzPsL")
-project = rf.workspace().project("apple-plant-disease-detection-p2448-aurbo")
+rf = 
+project = 
 model = project.version(4).model
 
 class_map = {
